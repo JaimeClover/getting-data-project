@@ -37,7 +37,7 @@ std(): Standard deviation
 
 What follows is the complete list of variable names in mean_values.txt. Columns 1 and 2 (activity and subject) form the primary key for this table. Columns 3-68 are averages of the variables described above, calculated from several measurements of the given activity/subject combination.
 
-mean_values.txt variable list:
+## mean_values.txt variable list:
 
 1. activity
 2. subject
