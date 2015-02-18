@@ -1,6 +1,6 @@
 This repository contains the files for my course project for the Coursera class "Getting and Cleaning Data". There are two files in addition to this README:
 
-run_analysis.R
+run_analysis.R  
 CodeBook.md
 
 run_analysis.R is an R script that will output the file "mean_values.txt", which shows the average value of certain variables for each activity/subject combination from the original data sets.
