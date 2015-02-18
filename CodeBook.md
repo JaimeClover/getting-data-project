@@ -39,8 +39,8 @@ What follows is the complete list of variable names in mean_values.txt. Columns 
 
 ## mean_values.txt variable list:
 
-1. activity
-2. subject
+1. activity (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
+2. subject (numbered 1-30, describes which of the 30 subjects was measured performing the given activity)
 3. tBodyAcc-mean()-X
 4. tBodyAcc-mean()-Y
 5. tBodyAcc-mean()-Z
