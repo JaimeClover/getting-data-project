@@ -6,6 +6,8 @@
 # 5. From the data set in step 4, creates a second, independent tidy data set 'mean_values.txt'
 #    with the average of each variable for each activity and each subject.
 
+# (package dependencies: reshape2)
+
 # load training and test sets, and combine into one data frame:
 train1 <- read.table("train/X_train.txt")
 test1 <- read.table("test/X_test.txt")
@@ -33,19 +35,10 @@ testSubject <- read.table("test/subject_test.txt")
 combinedSubject <- rbind(trainSubject, testSubject)
 dataMeanStd$subject = combinedSubject$V1
 
-# split the data into a different group for each activity/subject combination:
-splitter <- split(dataMeanStd, list(dataMeanStd$activity, dataMeanStd$subject))
-
-# create new data frame with the column means of each variable in the first activity/subject group:
-output <- data.frame(t(colMeans(splitter[[1]][,1:66])))
-output <- cbind(splitter[[1]][1, 67:68], output) # add columns for activity and subject
-
-# loop through the rest of the groups, and append their column means to the data frame:
-for (i in 2:180) {
-    splitMeans <- data.frame(t(colMeans(splitter[[i]][,1:66])))
-    splitMeans <- cbind(splitter[[i]][1, 67:68], splitMeans)
-    output <- rbind(output, splitMeans)
-}
+# melt the data frame so that the average can be aggregated over each variable:
+library(reshape2)
+dataMelt <- melt(dataMeanStd, id = c("activity", "subject"))
+dataFinal <- dcast(dataMelt, activity + subject ~ variable, mean)
 
 # create a new file for this data set:
-write.table(output, "mean_values.txt", row.names = FALSE)
+write.table(dataFinal, "mean_values.txt", row.names = FALSE)
