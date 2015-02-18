@@ -13,7 +13,7 @@ data <- rbind(train1, test1)
 
 # Using features.txt, select columns with "mean" or "std" in the name and rename them:
 features <- read.table("features.txt")
-index <- grep("mean|std", features$V2)
+index <- grep("mean\\(|std\\(", features$V2)
 dataMeanStd <- data[, index]
 names(dataMeanStd) <- features[index, "V2"]
 
@@ -37,15 +37,13 @@ dataMeanStd$subject = combinedSubject$V1
 splitter <- split(dataMeanStd, list(dataMeanStd$activity, dataMeanStd$subject))
 
 # create new data frame with the column means of each variable in the first activity/subject group:
-output <- data.frame(t(colMeans(splitter[[1]][,1:79])))
-names(output) <- paste("Mean.Of", names(output), sep=".")
-output <- cbind(splitter[[1]][1, 80:81], output) # add columns for activity and subject
+output <- data.frame(t(colMeans(splitter[[1]][,1:66])))
+output <- cbind(splitter[[1]][1, 67:68], output) # add columns for activity and subject
 
 # loop through the rest of the groups, and append their column means to the data frame:
 for (i in 2:180) {
-    splitMeans <- data.frame(t(colMeans(splitter[[i]][,1:79])))
-    names(splitMeans) <- paste("Mean.Of", names(splitMeans), sep=".")
-    splitMeans <- cbind(splitter[[i]][1, 80:81], splitMeans)
+    splitMeans <- data.frame(t(colMeans(splitter[[i]][,1:66])))
+    splitMeans <- cbind(splitter[[i]][1, 67:68], splitMeans)
     output <- rbind(output, splitMeans)
 }
 
